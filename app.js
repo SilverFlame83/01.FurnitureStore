@@ -10,13 +10,14 @@ function solve() {
 
   addBtn.addEventListener("click", onAdd);
 
-  function onAdd() {
+  function onAdd(event) {
+    event.preventDefault()
     let priceNum = Number(price.value);
     if (
       modelInput.value === "" ||
       yearInput.value === "" ||
       descriptionInput.value === "" ||
-      priceNum > 0
+      priceNum < 0
     ) {
       return;
     }
