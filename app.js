@@ -7,8 +7,11 @@ function solve() {
   const price = document.getElementById("price");
   const furnitureList = document.getElementById("furniture-list");
   const addBtn = document.getElementById("add");
+  let total = document.querySelector('.total-price');
+  
 
   addBtn.addEventListener("click", onAdd);
+  let totalPrice =0;
 
   function onAdd(event) {
     event.preventDefault();
@@ -38,12 +41,36 @@ function solve() {
     const tdDescription = document.createElement("td");
     tdDescription.setAttribute("colspan", "3");
     tdDescription.textContent = `Description ${descriptionInput.value}`;
-    const buttonTd = elManager('td');
+    const buttonTd = elManager("td");
 
     append(buttonTd, moreBtn, buyBtn);
     append(info, model, priceTd, buttonTd);
     append(hideTr, tdYear, tdDescription);
     append(furnitureList, info, hideTr);
+
+    totalPrice += priceNum
+
+    modelInput.value = "";
+    yearInput.value = "";
+    descriptionInput.value = "";
+    price.value = '';
+    moreBtn.addEventListener("click", more);
+
+    function more() {
+      hideTr.style.display = "contents";
+      moreBtn.textContent = "Less info";
+      moreBtn.addEventListener("click", () => {
+        moreBtn.textContent = "More info";
+        hideTr.style.display = "none";
+      });
+    }
+
+    buyBtn.addEventListener('click',onBuy);
+
+    function onBuy(){
+        total.textContent = totalPrice.toFixed(2)
+        console.log(totalPrice)
+    }
 
     function elManager(type, txtContent, className) {
       const el = document.createElement(type);
